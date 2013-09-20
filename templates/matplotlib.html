@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>UKCS : Server List</title>
+	<link href="/media/ukcs.css" rel="stylesheet">
+</head>
+<body>
+<div class="banner">
+	<div class="bannerleft">
+		UKCS: Server List
+	</div>
+</div>
+<div class="leftColumn">
+	{% for server in servers %}
+	<div class="server">
+		<div class="header">
+			<div class="serverName">{{ server.server_name }} | {{ server.description }}</div>
+			<div class="ipAddress">
+				{{ server.ip_address }}:{{ server.port_number }}
+			</div>
+		</div>
+		<div class="graph" style="max-width: 800px;">
+			<img src="/matplotlib/{{ server.ip_address }}/{{ server.port_number }}/{{ period }}" alt="loading..." /> 
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<div class="rightColumn">
+	<div class="timeSelector">
+		<ul id="timeList">
+		{% for string, value in times %}
+			{% if period == value %}
+				<li><a class="selected" href="/?period={{ value }}">{{ string }}</a> 
+			{% else %}
+				<li><a href="/?period={{ value }}">{{ string }}</a> 
+			{% endif %}
+		{% endfor %}
+		</ul>
+	</div>
+</div>
+</body>
+</html>

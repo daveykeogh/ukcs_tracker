@@ -1,0 +1,12 @@
+<html>
+<body>
+{% for server in servers %}
+<div class="server">
+	<h1>{{ server.server_name }}</h1>
+	<div class="graph" style="max-width: 800px;">
+		<a href="/rickshaw/{{ server.ip_address }}/{{ server.port_number }}/5">View User Graph</a> 
+	</div>
+</div>
+{% endfor %}
+</body>
+</html>

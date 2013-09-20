@@ -1,0 +1,58 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/media/graph.css">
+	<link type="text/css" rel="stylesheet" href="/media/lines.css">
+	<link type="text/css" rel="stylesheet" href="/media/rickshaw.min.css">
+	<script src="/static/d3.v3.min.js"></script>
+	<script src="/static/d3.layout.min.js"></script>
+	<script src="/static/rickshaw.min.js"></script>
+</head>
+<body>
+{% if server %}
+<div id="server">
+<h1>{{ server.server_name }}</h1>
+<div id="chart_container">
+	<div id="y_axis"></div>
+	<div id="chart"></div>
+</div>
+<style>
+#chart_container { 
+	position: relative;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#chart {
+	position: relative;
+	left: 40px;
+}
+#y_axis {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 40px;
+}
+</style>
+<script>
+	var graph = new Rickshaw.Graph( {
+	    element: document.querySelector("#chart"), 
+	    width: 500, 
+	    height: 200, 
+	    series: [{
+	        color: 'steelblue',
+	        data: {{ data|safe }}
+	    }]
+	});
+
+	var x_axis = new Rickshaw.Graph.Axis.Time( { graph: graph } );
+
+	var y_axis = new Rickshaw.Graph.Axis.Y( { 
+		graph: graph,
+		orientation: 'left',
+		//tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+		element: document.getElementById('y_axis'),
+	 } );
+	
+	graph.render();
+</script>
+{% endif %}
+</body>
+</html>
